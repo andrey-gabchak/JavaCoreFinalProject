@@ -11,7 +11,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         int n = scanner.nextInt();
 
-        NumbersFibonacci fib = new NumbersFibonacci();
+        Fibonacci fib = new Fibonacci();
         ArrayList<Integer> fibNumbers = fib.numericalSeriesFibonacci(n);
         fib.printFibonacci(fibNumbers);
 
