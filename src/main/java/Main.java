@@ -4,6 +4,7 @@ import java.util.Scanner;
 /**
  * Created by coura on 10.04.2016.
  */
+
 public class Main {
 
     public static void main(String[] args) {
@@ -13,9 +14,9 @@ public class Main {
 
         Fibonacci fib = new Fibonacci();
         ArrayList<Integer> fibNumbers = fib.numericalSeriesFibonacci(n);
-        fib.printFibonacci(fibNumbers);
+        fib.printSeriesFibonacci(fibNumbers);
 
-//        System.out.println(fib.maxNumberFibonacci(n));
+        System.out.println("Максимальное число Фибоначчи: " + fib.maxNumberFibonacci(n));
     }
 
 }

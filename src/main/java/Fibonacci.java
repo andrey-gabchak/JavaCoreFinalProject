@@ -10,15 +10,19 @@ public class Fibonacci {
         if (maxNumber == 0) return null;
 
         ArrayList<Integer> numSeriesFibonacci = new ArrayList<Integer>();
-        if (maxNumber == 1) numSeriesFibonacci.add(1);
 
-        for (int i = 1; i < maxNumber; i++) {
+        if (maxNumber == 1){
+            numSeriesFibonacci.add(1);
+            return numSeriesFibonacci;
+        }
 
-            if (numSeriesFibonacci.get(i) >= maxNumber){
-                numSeriesFibonacci.remove(numSeriesFibonacci.get(i));
-                break;
-            } else {
+        for (int i = 0; i < maxNumber; i++) {
+            if (i < 2) numSeriesFibonacci.add(i, 1);
+            if ((i >= 2) && ((numSeriesFibonacci.get(i - 1) + numSeriesFibonacci.get(i - 2)) <= maxNumber)){
                 numSeriesFibonacci.add(i, numSeriesFibonacci.get(i - 1) + numSeriesFibonacci.get(i - 2));
+            }
+            if ((i >= 2) && ((numSeriesFibonacci.get(i - 1) + numSeriesFibonacci.get(i - 2)) > maxNumber)){
+                break;
             }
         }
         return numSeriesFibonacci;
@@ -42,10 +46,12 @@ public class Fibonacci {
         return maxFibonacci;
     }
 
-    public void printFibonacci(ArrayList<Integer> fib){
+    public void printSeriesFibonacci(ArrayList<Integer> fib){
 
+        System.out.println("Числовой ряд Фибоначчи");
         for (Integer integer : fib) {
             System.out.print(integer + " ");
         }
+        System.out.println();
     }
 }
