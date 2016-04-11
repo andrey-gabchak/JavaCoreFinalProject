@@ -17,6 +17,9 @@ public class Main {
         fib.printSeriesFibonacci(fibNumbers);
 
         System.out.println("Максимальное число Фибоначчи: " + fib.maxNumberFibonacci(n));
+
+        Factorial factorial = new Factorial();
+        System.out.println("Факториал числа " + factorial.searchOfFactorial(n));
     }
 
 }
