@@ -2,7 +2,10 @@ import java.util.ArrayList;
 
 /**
  * Created by coura on 10.04.2016.
+ *
+ * Search of numerical series and max number Fibonacci.
  */
+
 public class Fibonacci {
 
     public ArrayList<Integer> numericalSeriesFibonacci(int maxNumber){
