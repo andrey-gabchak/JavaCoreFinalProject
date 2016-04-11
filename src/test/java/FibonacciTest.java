@@ -17,6 +17,15 @@ public class FibonacciTest {
     }
 
     @Test
+    public void testNumericalSeriesFibonacciNull() {
+        int maxNumber = 0;
+
+        ArrayList<Integer> result = numbersFibonacci.numericalSeriesFibonacci(maxNumber);
+
+        Assert.assertEquals(null, result);
+    }
+
+    @Test
     public void testNumericalSeriesFibonacciMinValue() {
         int maxNumber = 1;
 
