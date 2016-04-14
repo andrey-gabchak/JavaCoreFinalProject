@@ -7,7 +7,7 @@ import java.util.ArrayList;
 /**
  * Created by coura on 11.04.2016.
  *
- * swing
+ * Implementation of the program window
  */
 public class Window extends JFrame {
 
