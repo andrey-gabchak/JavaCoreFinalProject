@@ -57,4 +57,16 @@ public class Fibonacci {
         }
         System.out.println();
     }
+
+    public String fibNumSeriesToString(ArrayList fibonacciNS){
+        StringBuilder fib = new StringBuilder();
+
+        for (Object element : fibonacciNS) {
+            fib.append(element);
+            fib.append(", ");
+        }
+
+        String result = String.valueOf(fib);
+        return result;
+    }
 }
