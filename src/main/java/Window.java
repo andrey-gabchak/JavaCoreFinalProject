@@ -21,6 +21,8 @@ public class Window extends JFrame {
     private JLabel resultMaxNumberFibonacciFibLabel;
     private JLabel resultFactorialLabel;
 
+    private JLabel errorMessageJLabel;
+
     public Window() {
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -68,6 +70,13 @@ public class Window extends JFrame {
 
         findButton.addActionListener(new findButtonActionListener());
 
+
+        errorMessageJLabel = new JLabel();
+        errorMessageJLabel.setForeground(Color.RED);
+        add(errorMessageJLabel,
+                new GridBagConstraints(0, 6, 1, 1, 0.0, 0.9, GridBagConstraints.CENTER,
+                        GridBagConstraints.HORIZONTAL, new Insets(2, 5, 5, 3), 0, 0));
+
         setVisible(true);
         pack();
     }
@@ -76,12 +85,25 @@ public class Window extends JFrame {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            int number = Integer.parseInt(inputNumberTextField.getText());
-            outputResult(number);
+            String inputString = inputNumberTextField.getText();
+            Validation validation = new Validation();
+            if ((!numericalSeriesFibonacciCheckBox.isSelected()) &&
+                    (!maxNumberOfFibonacciCheckBox.isSelected()) &&
+                    (!factorialCheckBox.isSelected())){
+                outputErrorInput("[Error] Вы ничего не ввели! " +
+                        "Необходимо ввести положительное целое число!");
+            } else if (validation.isValid(inputString)){
+                int number = Integer.parseInt(inputString);
+                outputResult(number);
+            } else {
+                outputErrorInput("[Error] Некорректный ввод! " +
+                        "Необходимо ввести положительное целое число!");
+            }
         }
 
         private void outputResult(int number) {
             Fibonacci fibonacci = new Fibonacci();
+            errorMessageJLabel.setVisible(false);
 
             if (numericalSeriesFibonacciCheckBox.isSelected()) {
                 ArrayList<Integer> fibonacciNumericalSeries = fibonacci.numericalSeriesFibonacci(number);
@@ -124,5 +146,15 @@ public class Window extends JFrame {
                 resultMaxNumberFibonacciFibLabel.setVisible(false);
             }
         }
+
+        private void outputErrorInput(String errorText){
+            errorMessageJLabel.setVisible(true);
+            errorMessageJLabel.setText(errorText);
+            resultFactorialLabel.setVisible(false);
+            resultMaxNumberFibonacciFibLabel.setVisible(false);
+            resultNumericalSeriesFibonacciLabel.setVisible(false);
+        }
     }
+
+
 }
