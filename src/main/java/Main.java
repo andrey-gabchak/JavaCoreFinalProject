@@ -7,11 +7,8 @@ import java.util.Scanner;
 
 public class Main {
 
-    private static Window window;
     public static void main(String[] args) {
-
-
-        window = new Window();
+        Window window = new Window();
     }
 
 }
