@@ -49,15 +49,6 @@ public class Fibonacci {
         return maxFibonacci;
     }
 
-    public void printSeriesFibonacci(ArrayList<Integer> fib){
-
-        System.out.println("Числовой ряд Фибоначчи");
-        for (Integer integer : fib) {
-            System.out.print(integer + " ");
-        }
-        System.out.println();
-    }
-
     public String fibNumSeriesToString(ArrayList fibonacciNS){
         StringBuilder fib = new StringBuilder();
 
