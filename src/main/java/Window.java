@@ -19,8 +19,7 @@ public class Window extends JFrame {
     private JTextField inputNumberTextField;
     private JLabel resultNumericalSeriesFibonacciLabel;
     private JLabel resultMaxNumberFibonacciFibLabel;
-    private JLabel resultFactorialLabel;
-
+    private JTextField resultFactorialLabel;
     private JLabel errorMessageJLabel;
 
     public Window() {
@@ -38,7 +37,7 @@ public class Window extends JFrame {
         findButton = new JButton("Рассчитать!");
         resultNumericalSeriesFibonacciLabel = new JLabel();
         resultMaxNumberFibonacciFibLabel = new JLabel();
-        resultFactorialLabel = new JLabel();
+        resultFactorialLabel = new JTextField();
 
         add(descriptionField,
                 new GridBagConstraints(0, 0, 1, 1, 0.0, 0.9, GridBagConstraints.NORTH,
