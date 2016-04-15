@@ -3,6 +3,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import java.math.BigInteger;
+
 import static org.junit.Assert.*;
 
 /**
@@ -21,21 +23,21 @@ public class FactorialTest {
     @Test
     public void testSearchOfFactorialNull() throws Exception {
         int number = 0;
-        int result = factorial.searchOfFactorial(number);
-        assertEquals(1, result);
+        BigInteger result = factorial.searchOfFactorial(number);
+        assertEquals(BigInteger.ONE, result);
     }
 
     @Test
     public void testSearchOfFactorialOne() throws Exception {
         int number = 1;
-        int result = factorial.searchOfFactorial(number);
-        assertEquals(1, result);
+        BigInteger result = factorial.searchOfFactorial(number);
+        assertEquals(BigInteger.ONE, result);
     }
 
     @Test
     public void testSearchOfFactorialFive() throws Exception {
         int number = 5;
-        int result = factorial.searchOfFactorial(number);
-        assertEquals(120, result);
+        BigInteger result = factorial.searchOfFactorial(number);
+        assertEquals(BigInteger.valueOf(120), result);
     }
 }
