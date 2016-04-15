@@ -1,3 +1,4 @@
+import java.math.BigInteger;
 import java.util.ArrayList;
 
 /**
@@ -8,15 +9,10 @@ import java.util.ArrayList;
 
 public class Factorial {
 
-    public int searchOfFactorial(int number){
-
-        int facrorial = 1;
-
-        for (int i = 1; i <= number; i++) {
-            facrorial *= i;
-        }
-
-        return facrorial;
+    public BigInteger searchOfFactorial(int number){
+            BigInteger factorial = BigInteger.ONE;
+            for (int i = 1; i <= number; ++i) factorial = factorial.multiply(BigInteger.valueOf(i));
+            return factorial;
     }
 
 }
