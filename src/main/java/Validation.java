@@ -14,10 +14,9 @@ public class Validation {
             if (integerNumber > 0){
                 return true;
             }
-        } catch (NumberFormatException e){
-            System.out.println("[Error] Некорректный ввод! Необходимо ввести положительное целое число!" + e);
+        } catch (Exception e){
+            throw new RuntimeException(e);
         }
         return false;
     }
-
 }
