@@ -7,16 +7,16 @@
  */
 public class Validation {
 
-    public boolean isValid(String number){
+    public int isValid(String number){
 
         try{
             int integerNumber = Integer.parseInt(number);
-            if (integerNumber > 0){
-                return true;
-            }
-        } catch (Exception e){
-            throw new RuntimeException(e);
+            if (integerNumber > 0) return 1;
+            else if (integerNumber == 0) return 0;
+            else if (integerNumber < 0) return -1;
+        } catch (NumberFormatException e){
+            return -2;
         }
-        return false;
+        return -2;
     }
 }
