@@ -9,16 +9,14 @@ import java.util.ArrayList;
  *
  * Implementation of the program window
  */
+
 public class Window extends JFrame {
 
     private JCheckBox numericalSeriesFibonacciCheckBox;
     private JCheckBox maxNumberOfFibonacciCheckBox;
     private JCheckBox factorialCheckBox;
     private JTextField inputNumberTextField;
-    private JLabel resultNumericalSeriesFibonacciLabel;
-    private JLabel resultMaxNumberFibonacciFibLabel;
-    private JLabel resultFactorialLabel;
-    private JLabel errorMessageJLabel;
+    private JPanel dialogJPanel;
 
     public Window() {
 
@@ -30,19 +28,20 @@ public class Window extends JFrame {
         JLabel descriptionField = new JLabel("<html>Программа создана для вычисления факториала," +
                 "<br>числового ряда Фибоначчи, максимального числа" +
                 "<br>в ряде Фибоначии, которое не больше введеного значения." +
-                "<br>Чтобы начать вичисление введите значение: </html>");
+                "<br>Введите число для расчета:</html>");
         numericalSeriesFibonacciCheckBox = new JCheckBox("Ряд Фибоначчи");
         maxNumberOfFibonacciCheckBox = new JCheckBox("Максимальное число в ряду Фибоначчи");
         factorialCheckBox = new JCheckBox("Факториал");
         inputNumberTextField = new JTextField();
         JButton findButton = new JButton("Рассчитать!");
-        resultNumericalSeriesFibonacciLabel = new JLabel();
-        resultMaxNumberFibonacciFibLabel = new JLabel();
-        resultFactorialLabel = new JLabel();
+        dialogJPanel = new JPanel();
+        JPanel descriptionPanel = new JPanel();
 
+        add(descriptionPanel);
         add(descriptionField,
                 new GridBagConstraints(0, 0, 1, 1, 0.0, 0.9, GridBagConstraints.NORTH,
                         GridBagConstraints.HORIZONTAL, new Insets(10, 5, 5, 3), 0, 0));
+        descriptionPanel.add(descriptionField);
         add(inputNumberTextField,
                 new GridBagConstraints(0, 1, 1, 1, 0.0, 0.9, GridBagConstraints.NORTH,
                         GridBagConstraints.HORIZONTAL, new Insets(7, 5, 5, 3), 0, 0));
@@ -58,29 +57,14 @@ public class Window extends JFrame {
         add(findButton,
                 new GridBagConstraints(0, 5, 1, 1, 0.0, 0.9, GridBagConstraints.CENTER,
                         GridBagConstraints.HORIZONTAL, new Insets(12, 5, 5, 3), 0, 0));
-        add(resultNumericalSeriesFibonacciLabel,
-                new GridBagConstraints(0, 6, 1, 1, 0.0, 0.9, GridBagConstraints.CENTER,
-                        GridBagConstraints.HORIZONTAL, new Insets(12, 5, 5, 3), 0, 0));
-        add(resultMaxNumberFibonacciFibLabel,
-                new GridBagConstraints(0, 7, 1, 1, 0.0, 0.9, GridBagConstraints.CENTER,
-                        GridBagConstraints.HORIZONTAL, new Insets(2, 5, 5, 3), 0, 0));
-        add(resultFactorialLabel,
-                new GridBagConstraints(0, 8, 1, 1, 0.0, 0.9, GridBagConstraints.CENTER,
-                        GridBagConstraints.HORIZONTAL, new Insets(2, 5, 5, 3), 0, 0));
 
         findButton.addActionListener(new findButtonActionListener());
-
-        errorMessageJLabel = new JLabel();
-        errorMessageJLabel.setForeground(Color.RED);
-        add(errorMessageJLabel,
-                new GridBagConstraints(0, 6, 1, 1, 0.0, 0.9, GridBagConstraints.CENTER,
-                        GridBagConstraints.HORIZONTAL, new Insets(2, 5, 5, 3), 0, 0));
 
         setVisible(true);
         pack();
     }
 
-    public class findButtonActionListener implements ActionListener{
+    public class findButtonActionListener implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -88,70 +72,86 @@ public class Window extends JFrame {
             Validation validation = new Validation();
             if ((!numericalSeriesFibonacciCheckBox.isSelected()) &&
                     (!maxNumberOfFibonacciCheckBox.isSelected()) &&
-                    (!factorialCheckBox.isSelected())){
-                outputErrorInput("<html>[Error] Вы ничего не ввели! " +
-                        "<br>Необходимо ввести положительное целое число!<html>");
-            } else if (validation.isValid(inputString)){
+                    (!factorialCheckBox.isSelected())) {
+                JOptionPane.showMessageDialog(dialogJPanel, "<html>Вы ничего не ввели!" +
+                        "<br>Для рассчета необходимо ввести " +
+                        "<br>положительное целое число.<html>", "Ошибка", JOptionPane.DEFAULT_OPTION);
+            } else if (validation.isValid(inputString) == 1) {
                 int number = Integer.parseInt(inputString);
                 outputResult(number);
-            } else {
-                outputErrorInput("[Error] Некорректный ввод! " +
-                        "Необходимо ввести положительное целое число!");
+            } else if (validation.isValid(inputString) == -1){
+                JOptionPane.showMessageDialog(dialogJPanel, "<html>Невозможно произвести расчет " +
+                        "для отрицательного числа!" +
+                        "<br>Для рассчета необходимо ввести " +
+                        "положительное целое число.<html>", "Ошибка", JOptionPane.DEFAULT_OPTION);
+            } else if(validation.isValid(inputString) == -2){
+                JOptionPane.showMessageDialog(dialogJPanel, "<html>Некорректный ввод!" +
+                        "<br>Для рассчета необходимо ввести " +
+                        "положительное целое число.<html>", "Ошибка", JOptionPane.DEFAULT_OPTION);
+            } else if (validation.isValid(inputString) == 0){
+                if ((!numericalSeriesFibonacciCheckBox.isSelected()) && (!maxNumberOfFibonacciCheckBox.isSelected())
+                        && factorialCheckBox.isSelected()){
+                    Factorial factorial = new Factorial();
+                    JOptionPane.showMessageDialog(dialogJPanel, "Факториал: " +
+                                    String.valueOf(factorial.searchOfFactorial(Integer.parseInt(inputString))),
+                            "Результат", JOptionPane.DEFAULT_OPTION);
+                } else {
+                    JOptionPane.showMessageDialog(dialogJPanel, "<html>Нуль!" +
+                            "<br>Для значения '0' можно посчитать" +
+                            "<br>только факториал.<html>", "Ошибка", JOptionPane.DEFAULT_OPTION);
+                }
             }
         }
 
         private void outputResult(int number) {
             Fibonacci fibonacci = new Fibonacci();
-            errorMessageJLabel.setVisible(false);
+            Factorial factorial = new Factorial();
 
-            if (numericalSeriesFibonacciCheckBox.isSelected()) {
+            if (numericalSeriesFibonacciCheckBox.isSelected() && maxNumberOfFibonacciCheckBox.isSelected()
+                    && factorialCheckBox.isSelected()){
                 ArrayList<Integer> fibonacciNumericalSeries = fibonacci.numericalSeriesFibonacci(number);
-                resultNumericalSeriesFibonacciLabel.setText("Ряд Фибоначчи: "
-                        + fibonacci.fibNumSeriesToString(fibonacciNumericalSeries));
-                resultMaxNumberFibonacciFibLabel.setVisible(false);
-                resultFactorialLabel.setVisible(false);
-                resultNumericalSeriesFibonacciLabel.setVisible(true);
-
-                if (maxNumberOfFibonacciCheckBox.isSelected()) {
-                    resultMaxNumberFibonacciFibLabel.setText("Максимальное число Фибоначчи: "
-                            + String.valueOf(fibonacci.maxNumberFibonacci(number)));
-                    resultMaxNumberFibonacciFibLabel.setVisible(true);
-
-                    if (factorialCheckBox.isSelected()) {
-                        Factorial factorial = new Factorial();
-                        resultFactorialLabel.setText("Факториал: "
-                                + String.valueOf(factorial.searchOfFactorial(number)));
-                        resultFactorialLabel.setVisible(true);
-                    }
-                }
-            } else if (maxNumberOfFibonacciCheckBox.isSelected()) {
-                resultMaxNumberFibonacciFibLabel.setText("Максимальное число Фибоначчи: "
-                        + String.valueOf(fibonacci.maxNumberFibonacci(number)));
-                resultNumericalSeriesFibonacciLabel.setVisible(false);
-                resultFactorialLabel.setVisible(false);
-                resultMaxNumberFibonacciFibLabel.setVisible(true);
-
-                if (factorialCheckBox.isSelected()) {
-                    Factorial factorial = new Factorial();
-                    resultFactorialLabel.setText("Факториал: "
-                            + String.valueOf(factorial.searchOfFactorial(number)));
-                    resultFactorialLabel.setVisible(true);
-                }
-            } else if (factorialCheckBox.isSelected()) {
-                Factorial factorial = new Factorial();
-                resultFactorialLabel.setText("Факториал: "
-                        + String.valueOf(factorial.searchOfFactorial(number)));
-                resultNumericalSeriesFibonacciLabel.setVisible(false);
-                resultMaxNumberFibonacciFibLabel.setVisible(false);
+                JOptionPane.showMessageDialog(dialogJPanel, "<html>Ряд Фибоначчи: "
+                        + fibonacci.fibNumSeriesToString(fibonacciNumericalSeries) +
+                        "<br>Максимальное число Фибоначчи: " + String.valueOf(fibonacci.maxNumberFibonacci(number)) +
+                        "<br>Факториал: " + String.valueOf(factorial.searchOfFactorial(number)) +
+                        "</html>", "Результат", JOptionPane.DEFAULT_OPTION);
+            } else if (numericalSeriesFibonacciCheckBox.isSelected() && maxNumberOfFibonacciCheckBox.isSelected()
+                    && (!factorialCheckBox.isSelected())){
+                ArrayList<Integer> fibonacciNumericalSeries = fibonacci.numericalSeriesFibonacci(number);
+                JOptionPane.showMessageDialog(dialogJPanel, "<html>Ряд Фибоначчи: "
+                        + fibonacci.fibNumSeriesToString(fibonacciNumericalSeries) +
+                        "<br>Максимальное число Фибоначчи: " + String.valueOf(fibonacci.maxNumberFibonacci(number)) +
+                        "</html>", "Результат", JOptionPane.DEFAULT_OPTION);
+            } else if (numericalSeriesFibonacciCheckBox.isSelected() && (!maxNumberOfFibonacciCheckBox.isSelected())
+                    && (!factorialCheckBox.isSelected())){
+                ArrayList<Integer> fibonacciNumericalSeries = fibonacci.numericalSeriesFibonacci(number);
+                JOptionPane.showMessageDialog(dialogJPanel, "Ряд Фибоначчи: "
+                        + fibonacci.fibNumSeriesToString(fibonacciNumericalSeries),
+                        "Результат", JOptionPane.DEFAULT_OPTION);
+            } else if (numericalSeriesFibonacciCheckBox.isSelected() && (!maxNumberOfFibonacciCheckBox.isSelected())
+                    && factorialCheckBox.isSelected()){
+                ArrayList<Integer> fibonacciNumericalSeries = fibonacci.numericalSeriesFibonacci(number);
+                JOptionPane.showMessageDialog(dialogJPanel, "<html>Ряд Фибоначчи: "
+                        + fibonacci.fibNumSeriesToString(fibonacciNumericalSeries) +
+                        "<br>Факториал: " + String.valueOf(factorial.searchOfFactorial(number)) +
+                        "</html>", "Результат", JOptionPane.DEFAULT_OPTION);
+            } else if ((!numericalSeriesFibonacciCheckBox.isSelected()) && maxNumberOfFibonacciCheckBox.isSelected()
+                    && factorialCheckBox.isSelected()){
+                JOptionPane.showMessageDialog(dialogJPanel, "<html>Максимальное число Фибоначчи: " +
+                        String.valueOf(fibonacci.maxNumberFibonacci(number)) +
+                        "<br>Факториал: " + String.valueOf(factorial.searchOfFactorial(number)) +
+                        "</html>", "Результат", JOptionPane.DEFAULT_OPTION);
+            } if ((!numericalSeriesFibonacciCheckBox.isSelected()) && (!maxNumberOfFibonacciCheckBox.isSelected())
+                    && factorialCheckBox.isSelected()){
+                JOptionPane.showMessageDialog(dialogJPanel, "Факториал: " +
+                        String.valueOf(factorial.searchOfFactorial(number)),
+                        "Результат", JOptionPane.DEFAULT_OPTION);
+            } if ((!numericalSeriesFibonacciCheckBox.isSelected()) && maxNumberOfFibonacciCheckBox.isSelected()
+                    && (!factorialCheckBox.isSelected())){
+                JOptionPane.showMessageDialog(dialogJPanel, "Максимальное число Фибоначчи: " +
+                        String.valueOf(fibonacci.maxNumberFibonacci(number)),
+                        "Результат", JOptionPane.DEFAULT_OPTION);
             }
-        }
-
-        private void outputErrorInput(String errorText){
-            errorMessageJLabel.setVisible(true);
-            errorMessageJLabel.setText(errorText);
-            resultFactorialLabel.setVisible(false);
-            resultMaxNumberFibonacciFibLabel.setVisible(false);
-            resultNumericalSeriesFibonacciLabel.setVisible(false);
         }
     }
 }
