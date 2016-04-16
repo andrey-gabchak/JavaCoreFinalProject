@@ -21,36 +21,36 @@ public class ValidationTest {
 
     @Test
     public void testIsValidNull() throws Exception {
-        String inputValue = null;
-        boolean result = validation.isValid(inputValue);
-        assertEquals(false, result);
+        String inputValue = "0";
+        int result = validation.isValid(inputValue);
+        assertEquals(0, result);
     }
 
     @Test
     public void testIsValidEmpty() throws Exception {
-        String inputValue = "";
-        boolean result = validation.isValid(inputValue);
-        assertEquals(false, result);
+        String inputValue = null;
+        int result = validation.isValid(inputValue);
+        assertEquals(-2, result);
     }
 
     @Test
     public void testIsValidNegative() throws Exception {
         String inputValue = "-4";
-        boolean result = validation.isValid(inputValue);
-        assertEquals(false, result);
+        int result = validation.isValid(inputValue);
+        assertEquals(-1, result);
     }
 
     @Test
     public void testIsValidIncorrectString() throws Exception {
         String inputValue = "asdf";
-        boolean result = validation.isValid(inputValue);
-        assertEquals(false, result);
+        int result = validation.isValid(inputValue);
+        assertEquals(-2, result);
     }
     @Test
     public void testIsValidPositiveInteger() throws Exception {
         String inputValue = "4";
-        boolean result = validation.isValid(inputValue);
-        assertEquals(true, result);
+        int result = validation.isValid(inputValue);
+        assertEquals(1, result);
     }
 
 
