@@ -24,6 +24,7 @@ public class Window extends JFrame {
         setLocationRelativeTo(null);
         setLayout(new GridBagLayout());
         setTitle("Фибоначчи и факториал");
+        setResizable(false);
 
         JLabel descriptionField = new JLabel("<html>Программа создана для вычисления факториала," +
                 "<br>числового ряда Фибоначчи, максимального числа" +
