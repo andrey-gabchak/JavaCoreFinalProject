@@ -14,46 +14,47 @@ public class Window extends JFrame {
     private JCheckBox numericalSeriesFibonacciCheckBox;
     private JCheckBox maxNumberOfFibonacciCheckBox;
     private JCheckBox factorialCheckBox;
-    private JLabel descriptionField;
-    private JButton findButton;
     private JTextField inputNumberTextField;
     private JLabel resultNumericalSeriesFibonacciLabel;
     private JLabel resultMaxNumberFibonacciFibLabel;
-    private JTextField resultFactorialLabel;
+    private JLabel resultFactorialLabel;
     private JLabel errorMessageJLabel;
 
     public Window() {
 
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(new GridBagLayout());
         setTitle("Фибоначчи и факториал");
 
-        descriptionField = new JLabel("Программа вычисления следующих параметров для введенного числа.");
-        numericalSeriesFibonacciCheckBox = new JCheckBox("Рассчитать ряд Фибоначчи к введенному числу");
-        maxNumberOfFibonacciCheckBox = new JCheckBox("Рассчитать число Фибоначчи максимально приближенно у введенному");
-        factorialCheckBox = new JCheckBox("Найти факториал числа");
-        inputNumberTextField = new JTextField("5");
-        findButton = new JButton("Рассчитать!");
+        JLabel descriptionField = new JLabel("<html>Программа создана для вычисления факториала," +
+                "<br>числового ряда Фибоначчи, максимального числа" +
+                "<br>в ряде Фибоначии, которое не больше введеного значения." +
+                "<br>Чтобы начать вичисление введите значение: </html>");
+        numericalSeriesFibonacciCheckBox = new JCheckBox("Ряд Фибоначчи");
+        maxNumberOfFibonacciCheckBox = new JCheckBox("Максимальное число в ряду Фибоначчи");
+        factorialCheckBox = new JCheckBox("Факториал");
+        inputNumberTextField = new JTextField();
+        JButton findButton = new JButton("Рассчитать!");
         resultNumericalSeriesFibonacciLabel = new JLabel();
         resultMaxNumberFibonacciFibLabel = new JLabel();
-        resultFactorialLabel = new JTextField();
+        resultFactorialLabel = new JLabel();
 
         add(descriptionField,
                 new GridBagConstraints(0, 0, 1, 1, 0.0, 0.9, GridBagConstraints.NORTH,
                         GridBagConstraints.HORIZONTAL, new Insets(10, 5, 5, 3), 0, 0));
-        add(numericalSeriesFibonacciCheckBox,
+        add(inputNumberTextField,
                 new GridBagConstraints(0, 1, 1, 1, 0.0, 0.9, GridBagConstraints.NORTH,
+                        GridBagConstraints.HORIZONTAL, new Insets(7, 5, 5, 3), 0, 0));
+        add(numericalSeriesFibonacciCheckBox,
+                new GridBagConstraints(0, 2, 1, 1, 0.0, 0.9, GridBagConstraints.NORTH,
                         GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 3), 0, 0));
         add(maxNumberOfFibonacciCheckBox,
-                new GridBagConstraints(0, 2, 1, 1, 0.0, 0.9, GridBagConstraints.NORTH,
-                        GridBagConstraints.HORIZONTAL, new Insets(2, 5, 5, 3), 0, 0));
-        add(factorialCheckBox,
                 new GridBagConstraints(0, 3, 1, 1, 0.0, 0.9, GridBagConstraints.NORTH,
                         GridBagConstraints.HORIZONTAL, new Insets(2, 5, 5, 3), 0, 0));
-        add(inputNumberTextField,
+        add(factorialCheckBox,
                 new GridBagConstraints(0, 4, 1, 1, 0.0, 0.9, GridBagConstraints.NORTH,
-                        GridBagConstraints.HORIZONTAL, new Insets(7, 5, 5, 3), 0, 0));
+                        GridBagConstraints.HORIZONTAL, new Insets(2, 5, 5, 3), 0, 0));
         add(findButton,
                 new GridBagConstraints(0, 5, 1, 1, 0.0, 0.9, GridBagConstraints.CENTER,
                         GridBagConstraints.HORIZONTAL, new Insets(12, 5, 5, 3), 0, 0));
@@ -68,7 +69,6 @@ public class Window extends JFrame {
                         GridBagConstraints.HORIZONTAL, new Insets(2, 5, 5, 3), 0, 0));
 
         findButton.addActionListener(new findButtonActionListener());
-
 
         errorMessageJLabel = new JLabel();
         errorMessageJLabel.setForeground(Color.RED);
@@ -89,8 +89,8 @@ public class Window extends JFrame {
             if ((!numericalSeriesFibonacciCheckBox.isSelected()) &&
                     (!maxNumberOfFibonacciCheckBox.isSelected()) &&
                     (!factorialCheckBox.isSelected())){
-                outputErrorInput("[Error] Вы ничего не ввели! " +
-                        "Необходимо ввести положительное целое число!");
+                outputErrorInput("<html>[Error] Вы ничего не ввели! " +
+                        "<br>Необходимо ввести положительное целое число!<html>");
             } else if (validation.isValid(inputString)){
                 int number = Integer.parseInt(inputString);
                 outputResult(number);
@@ -154,6 +154,4 @@ public class Window extends JFrame {
             resultNumericalSeriesFibonacciLabel.setVisible(false);
         }
     }
-
-
 }
