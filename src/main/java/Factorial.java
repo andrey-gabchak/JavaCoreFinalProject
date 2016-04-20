@@ -1,18 +1,20 @@
-import java.math.BigInteger;
-import java.util.ArrayList;
-
-/**
- * Created by coura on 10.04.2016.
- *
- * Search of factorial of entered number.
- */
-
 public class Factorial {
 
-    public BigInteger searchOfFactorial(int number){
-            BigInteger factorial = BigInteger.ONE;
-            for (int i = 1; i <= number; ++i) factorial = factorial.multiply(BigInteger.valueOf(i));
-            return factorial;
+    public void checkInteger(int enteredInteger)throws NegativeIntegerException, UpperLimitException {
+        if (enteredInteger < 1){
+            throw new NegativeIntegerException(enteredInteger);
+        }
+
+        if (enteredInteger > 170){
+            throw new UpperLimitException(enteredInteger);
+        }
     }
 
+    public double getFactorial(int positiveInteger){
+        double result = 1;
+        for (int i = 1; i <=positiveInteger ; i++) {
+            result *= i;
+        }
+        return result;
+    }
 }

@@ -1,43 +1,33 @@
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import java.math.BigInteger;
-
-import static org.junit.Assert.*;
-
-/**
- * Created by coura on 11.04.2016.
- */
-
 public class FactorialTest {
-
     private static Factorial factorial;
 
     @BeforeClass
-    public static void setUpClass() throws Exception {
+    public static void setUp() {
         factorial = new Factorial();
     }
 
     @Test
-    public void testSearchOfFactorialNull() throws Exception {
-        int number = 0;
-        BigInteger result = factorial.searchOfFactorial(number);
-        assertEquals(BigInteger.ONE, result);
+    public void testFactorialPositive(){
+        final int a = 5;
+        final  double result = factorial.getFactorial(a);
+
+        Assert.assertEquals(120,result,0);
     }
 
-    @Test
-    public void testSearchOfFactorialOne() throws Exception {
-        int number = 1;
-        BigInteger result = factorial.searchOfFactorial(number);
-        assertEquals(BigInteger.ONE, result);
+    @Test(expected = UpperLimitException.class)
+    public void testMaxLimitNumber() throws Exception {
+        final int a = 175;
+        factorial.checkInteger(a);
     }
 
-    @Test
-    public void testSearchOfFactorialFive() throws Exception {
-        int number = 5;
-        BigInteger result = factorial.searchOfFactorial(number);
-        assertEquals(BigInteger.valueOf(120), result);
+    @Test(expected = NegativeIntegerException.class)
+    public void testNegativeNumber() throws Exception {
+        final int a = -1;
+        factorial.checkInteger(a);
     }
+
 }
